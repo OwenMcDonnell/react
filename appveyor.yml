@@ -32,7 +32,7 @@ test_script:
   - yarn lint
   - ps: |
       $action={"[$(Get-Date)] WS(MB) = $([math]::Round($Event.SourceEventArgs.NewEvent.SourceInstance.WorkingSetSize/1MB,2))"}
-      $nq = "Select * from win32_ProcessStartTrace where processname = 'cmd.exe'"
+      $query = "Select * from win32_ProcessStartTrace where processname = 'cmd.exe'"
       Register-CimIndicationEvent -Query $query -SourceIdentifier "ProcessMemory" -Action $action
   - yarn flow-ci
   #- ps:  Get-WMIObject Win32_Process | Select Name,@{n="Private Memory(mb)";e={$_.PrivatePageCount/1mb}}

@@ -32,7 +32,7 @@ test_script:
   #- yarn lint
   - ps: |
       $action={write-host "[$(Get-Date)]PID = $($Event.SourceEventArgs.NewEvent.processid)"; write-host "[$(Get-Date)] Process = $($Event.SourceEventArgs.NewEvent.ProcessName)"}
-      $query = "Select * from win32_ProcessStartTrace"
+      $query = "Select * from win32_ProcessStartTrace where processname = 'flow.exe'"
       Register-CimIndicationEvent -Query $query -SourceIdentifier "ProcessMemory" -Action $action
   - yarn flow-ci
   #- ps:  Get-WMIObject Win32_Process | Select Name,@{n="Private Memory(mb)";e={$_.PrivatePageCount/1mb}}

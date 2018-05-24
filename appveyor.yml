@@ -31,7 +31,7 @@ test_script:
   - node --version
   - yarn lint
   - ps: |
-      $action={"[$(Get-Date)] WS(MB) = $([math]::Round($Event.SourceEventArgs.NewEvent.SourceInstance.WorkingSetSize/1MB,2))"}
+      $action={write-host "[$(Get-Date)] WS(MB) = $([math]::Round($Event.SourceEventArgs.NewEvent.SourceInstance.WorkingSetSize/1MB,2))"; write-host "[$(Get-Date)] Process = $($Event.SourceEventArgs.NewEvent.SourceInstance.Name)"}
       $query = "Select * from win32_ProcessStartTrace where processname = 'cmd.exe'"
       Register-CimIndicationEvent -Query $query -SourceIdentifier "ProcessMemory" -Action $action
   - yarn flow-ci

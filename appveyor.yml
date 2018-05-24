@@ -31,6 +31,7 @@ test_script:
   - node --version
   - yarn lint
   - yarn flow-ci
+  - ps:  Get-WMIObject Win32_Process | Select Name,@{n="Private Memory(mb)";e={$_.PrivatePageCount/1mb}}
   - yarn build
   - yarn test
   - yarn prettier
